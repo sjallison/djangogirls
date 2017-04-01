@@ -1,4 +1,42 @@
-<html>
-    <p>Hi there!</p>
-    <p>It works!</p>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+
+
+ <div class="container">
+    <section class="section">
+    <div class="container">
+      <div class="heading">
+       
+        
+      </div>
+    </div>
+  </section>
+  <div class="columns">
+      <div class="column is-8 columns is-gapless  is-multiline ">
+        
+<div class="column is-12"><h1>Latest Brexit News</h1></div>
+      
+
+     
+      
+      
+       {% for post in posts %}
+               <div class="column is-one-third">
+  <div class="test">
+               <h1>{{ post.published_date }}</h1>
+    <h2>{{ post.title }}</h2>
+  </div>
+</div>
+    
+     
+            {% endfor %}
+      
+      
+         </div>
+<div class="column is-4">
+  <h1>Most Read</h1>
+  
+ </div></div>
+</div>
+           
+       {% endblock %}

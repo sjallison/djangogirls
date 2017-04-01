@@ -1,0 +1,152 @@
+{% load staticfiles %}
+<html>
+    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
+    
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    </head>
+ <body>
+    
+{% if user.is_authenticated %}
+    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+{% endif %}
+  
+
+
+
+	
+	
+
+	
+	
+{% block header %}
+	<div class="container-fluid columns top-nav2 is-gapless is-multiline is-mobile"  >
+  <div class="column is-one-quarter" style="padding-left:30px;">
+    <span style="font-size:32px; font-family: Impact, Charcoal, sans-serif; color: rgba(255,255,255,1); text-align: center;" align="right" >BREXIT COUNTDOWN</span><br><span style="font-size:25px; font-family: Impact, Charcoal, sans-serif; color: rgba(255,255,255,1); text-align: right;" align="center" >Brexit Two Year Art 50 Deadline Expires In:</span>
+  </div>
+  <div class="column is-three-quarters block columns">
+
+  <div class="column">
+<span class="digit months" id="months"></span><p class="cntcalendar">Months</p>
+  </div>
+  <div class="column">
+			<span class="digit days" id="days"></span><p class="cntcalendar">Days</p>
+  </div>
+  <div class="column">
+			<span class="digit hours" id="hours"></span><p class="cntcalendar">Hours</p>
+  </div>
+  <div class="column">
+			<span class="digit mins" id="minutes"></span><p class="cntcalendar">Minutes</p>
+  </div>
+  <div class="column">
+			<span class="digit secs" id="seconds"></span><span class="digit secs" >:</span><span class="digit ms" id="ms"></span><p class="cntcalendar">Seconds</p>
+  </div>
+  </div>  </div>
+  
+
+{% endblock %}
+{% block content %}
+
+
+{% endblock %}
+{% block footer %}
+  <nav class="nav has-shadow" id="top">
+    <div class="container">
+      <div class="nav-left">
+        <a class="nav-item" href="../index.html">
+          <img src="../images/bulma.png" alt="Description">
+        </a>
+      </div>
+      <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <div class="nav-right nav-menu">
+        <a class="nav-item is-tab is-active">
+          Home
+        </a>
+        <a class="nav-item is-tab">
+          Features
+        </a>
+        <a class="nav-item is-tab">
+          Team
+        </a>
+        <a class="nav-item is-tab">
+          Help
+        </a>
+        <span class="nav-item">
+           {% if user.is_authenticated %}
+                <a class="button">Welcome {{ user.username }}</a>
+          <a class="button is-info"></a>Sign Out</a>
+        {% else %}
+                 <a href="/login/" class="button">Log in</a>
+          <a class="button is-info">Sign up</a>
+        {% endif %}
+          
+        </span>
+      </div>
+    </div>
+  </nav>
+  <div class="hero-foot">
+      <div class="container">
+        <div class="tabs is-centered">
+          <ul>
+            <li><a href="http://bulma.io">Made with bulma</a></li>
+            <li><a>Copyright 2016 Bulma</a></li>
+            <li><a href="http://unsplash.com">Images via unsplash</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script async type="text/javascript" src="../js/bulma.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+  
+        //COUNTDOWN TIMER
+
+$(document).ready(function(){
+  
+  var deadline = new Date(Date.UTC(2019, 02, 29, 12, 30, 30, 501));
+
+    
+  function updateClock(){
+  var today = new Date();
+  var diff = deadline - today;
+    if(diff<=0){
+      clearInterval(interval);
+    }
+    else{
+  var ms = diff%1000;
+      var seconds = Math.floor((diff/1000)%60);
+  var minutes = Math.floor((diff/1000/60)%60);
+  var hours = Math.floor((diff/1000/60/60)%24);
+  var days = Math.floor(diff/(1000*60*60*24)%30.5);
+  var months = Math.floor(diff/(1000*60*60*24*30.5));
+  // var years = Math.floor(diff/(1000*60*60*24*365)%12);
+    
+     // $("#years").text(('0'+years).slice(-2));
+
+$("#ms").text(('0'+ms).slice(-1));
+      $("#months").text(('0'+months).slice(-2));
+     $("#days").text(('0'+days).slice(-2));
+     $("#hours").text(('0'+hours).slice(-2));
+     $("#minutes").text(('0'+minutes).slice(-2));
+     $("#seconds").text(('0'+seconds).slice(-2));
+    
+    }
+  
+  }
+  
+ var interval = setInterval(updateClock,25);
+  
+});
+
+
+  
+</script>
+
+
+{% endblock %}</body>
+</html>
